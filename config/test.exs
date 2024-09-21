@@ -6,8 +6,8 @@ import Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :kanban_project, KanbanProject.Repo,
-  username: "hatsor",
-  password: "hatsor",
+  username: "postgres",
+  password: "postgres",
   hostname: "localhost",
   database: "kanban_project_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
