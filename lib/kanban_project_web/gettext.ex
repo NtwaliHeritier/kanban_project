@@ -20,5 +20,5 @@ defmodule KanbanProjectWeb.Gettext do
 
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
-  use Gettext, otp_app: :kanban_project
+  use Gettext, backend: KanbanProject.Gettext
 end
