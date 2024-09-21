@@ -3,8 +3,6 @@ defmodule KanbanProject.Admin.User do
   import Ecto.Changeset
 
   schema "users" do
-
-
     timestamps(type: :utc_datetime)
   end
 

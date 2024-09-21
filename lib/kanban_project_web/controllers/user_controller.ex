@@ -7,7 +7,7 @@ defmodule KanbanProjectWeb.UserController do
   action_fallback KanbanProjectWeb.FallbackController
 
   def index(conn, _params) do
-    IO.inspect "I am here==="
+    IO.inspect("I am here===")
     users = Admin.list_users()
     render(conn, :index, users: users)
   end

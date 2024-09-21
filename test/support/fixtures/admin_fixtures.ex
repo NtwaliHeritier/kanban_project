@@ -10,9 +10,7 @@ defmodule KanbanProject.AdminFixtures do
   def user_fixture(attrs \\ %{}) do
     {:ok, user} =
       attrs
-      |> Enum.into(%{
-
-      })
+      |> Enum.into(%{})
       |> KanbanProject.Admin.create_user()
 
     user
