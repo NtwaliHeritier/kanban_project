@@ -1,7 +1,18 @@
 version: "3.9"
+secrets:
+  postgrespassword:
+    file: ./secrets/.postgrespassword
+  databaseurl:
+    file: ./secrets/.databaseurl
+  secretkeybase:
+    file: ./secrets/.secretkeybase
+  
+
 services:
   db:
     image: postgres:15.2
+    secrets:
+      - postgrespassword
     healthcheck:
       test: ["CMD", "pg_isready", "--username=postgres"]
       interval: 10s
@@ -11,7 +22,7 @@ services:
       restart_policy:
         condition: on-failure
     environment:
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgrespassword
       PGDATA: /var/lib/postgresql/data
     ports:
       - ${POSTGRES_PORT:-5432}
@@ -21,6 +32,9 @@ services:
   web:
     depends_on:
       - db
+    secrets:
+      - databaseurl
+      - secretkeybase
     image: ${WEB_IMAGE:-ghcr.io/ntwaliheritier/kanban_project:latest}
     command: >
       bash -c "bin/migrate && bin/server"
@@ -31,8 +45,8 @@ services:
         max_attempts: 3
         window: 120s
     environment:
-      DATABASE_URL: ecto://postgres:postgres@db/postgres
-      SECRET_KEY_BASE: Tf45c5Ljgel2oAZqyNnRJ1mRH22y9mHMiJmgz+Y0all67Z7tvShgf5AoTEH97FvP
+      DATABASE_URL_FILE: /run/secrets/databaseurl
+      SECRET_KEY_BASE: /run/secrets/secretkeybase
       PHX_HOST: "localhost"
     ports:
       - 4000:4000

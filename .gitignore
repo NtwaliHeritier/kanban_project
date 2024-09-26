@@ -29,3 +29,4 @@ kanban_project-*.tar
 /priv/plts/*.plt
 /priv/plts/*.plt.hash
 
+key.txt
