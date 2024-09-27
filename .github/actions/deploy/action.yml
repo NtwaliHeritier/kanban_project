@@ -37,21 +37,6 @@ runs:
         echo "${{ inputs.age_key }}" > ./key.txt
         echo "${{ inputs.ssh_private_key }}" > ./key_ed25519
 
-    - name: Restore doctl cache
-        id: cache-doctl
-        uses: actions/cache@v3
-        with:
-          path: /var/lib/snapd/snaps/doctl_*.snap
-          key: doctl-cache
-
-    - name: Install doctl (if not cached)
-      if: steps.cache-doctl.outputs.cache-hit != 'true'
-      run: sudo snap install doctl
-
-    - name: Authenticate doctl with DigitalOcean
-      run: |
-        doctl auth init --access-token ${{ secrets.DO_API_TOKEN }}    
-
     - name: Deploy
       shell: bash
       env:
