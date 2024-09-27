@@ -137,7 +137,7 @@ jobs:
     name: Deploy application
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/deploy
+      - uses: ../../actions/deploy
         with:
           github_user: ${{ github.repository_owner }}
           gh_pat: ${{ secrets.GH_PAT }}
