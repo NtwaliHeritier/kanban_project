@@ -1,3 +1,4 @@
 elixir 1.17.2
 erlang 27.0
 postgres 15.2
+doctl 1.115.0
