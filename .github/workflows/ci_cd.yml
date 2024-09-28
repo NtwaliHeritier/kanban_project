@@ -137,21 +137,21 @@ jobs:
     name: Deploy application
     steps:
       - uses: actions/checkout@v4
-      
-    - name: Restore doctl cache
-      id: cache-doctl
-      uses: actions/cache@v4
-      with:
-        path: /var/lib/snapd/snaps/doctl_*.snap
-        key: doctl-cache
 
-    - name: Install doctl (if not cached)
-      if: steps.cache-doctl.outputs.cache-hit != 'true'
-      run: sudo snap install doctl
+      - name: Restore doctl cache
+        id: cache-doctl
+        uses: actions/cache@v4
+        with:
+          path: /var/lib/snapd/snaps/doctl_*.snap
+          key: doctl-cache
 
-    - name: Authenticate doctl with DigitalOcean
-      run: |
-        doctl auth init --access-token ${{ secrets.DO_API_TOKEN }}
+      - name: Install doctl (if not cached)
+        if: steps.cache-doctl.outputs.cache-hit != 'true'
+        run: sudo snap install doctl
+
+      - name: Authenticate doctl with DigitalOcean
+        run: |
+          doctl auth init --access-token ${{ secrets.DO_API_TOKEN }}
       - uses: ./.github/actions/deploy
         with:
           github_user: ${{ github.repository_owner }}
