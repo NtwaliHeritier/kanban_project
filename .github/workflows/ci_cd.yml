@@ -138,16 +138,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Restore doctl cache
+      - name: Restore doctl from cache
         id: cache-doctl
-        uses: actions/cache@v4
+        uses: actions/cache@v3
         with:
-          path: /var/lib/snapd/snaps/doctl_*.snap
-          key: doctl-cache
+          path: ./doctl
+          key: doctl-cache-v1-115-0
 
-      - name: Install doctl (if not cached)
+      - name: Download doctl 1.115.0 (if not cached)
         if: steps.cache-doctl.outputs.cache-hit != 'true'
-        run: sudo snap install doctl
+        run: |
+          curl -LO https://github.com/digitalocean/doctl/releases/download/v1.115.0/doctl-1.115.0-linux-amd64.tar.gz
+          tar -xvf doctl-1.115.0-linux-amd64.tar.gz
+          chmod +x doctl
+          mv doctl ./doctl
+
+      - name: Add doctl to PATH
+        run: echo "${{ github.workspace }}/doctl" >> $GITHUB_PATH
 
       - name: Authenticate doctl with DigitalOcean
         run: |
