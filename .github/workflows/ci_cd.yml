@@ -140,7 +140,7 @@ jobs:
 
       - name: Restore doctl cache
         id: cache-doctl
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: /var/lib/snapd/snaps/doctl_*.snap
           key: doctl-cache
