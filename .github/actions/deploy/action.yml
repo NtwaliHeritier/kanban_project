@@ -34,6 +34,9 @@ runs:
     - name: Create age and SSH key files
       shell: bash
       run: |-
+        echo "here======"
+        echo "${{ inputs.age_key }}"
+        echo "${{ inputs.ssh_private_key }}"
         echo "${{ inputs.age_key }}" > ./key.txt
         echo "${{ inputs.ssh_private_key }}" > ./key_ed25519
 
@@ -42,6 +45,7 @@ runs:
       env:
         GITHUB_TOKEN: ${{ inputs.gh_pat }}
         GITHUB_USER: ${{ inputs.github_user }}
+        PRIVATE_KEY_PATH: ${{ inputs.ssh_private_key }}
       run: |-
         SOPS_AGE_KEY_FILE=$(pwd)/key.txt \
         PRIVATE_KEY_PATH="$(pwd)/key_ed25519" \

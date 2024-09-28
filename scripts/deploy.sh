@@ -47,7 +47,6 @@ CURRENT_SCRIPT_DIRECTORY=$(dirname "$0")
 eval "$(ssh-agent -s)"
 chmod 600 "$PRIVATE_KEY_PATH"
 mkdir -p ~/.ssh/
-echo $PRIVATE_KEY_PATH
 ssh-add "$PRIVATE_KEY_PATH"
 # add EC2 IP to list of known hosts
 ssh-keyscan -H "$DROPLET_IP" >> ~/.ssh/known_hosts
