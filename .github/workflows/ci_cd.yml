@@ -140,7 +140,7 @@ jobs:
 
       - name: Restore doctl from cache
         id: cache-doctl
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ./doctl
           key: doctl-cache-v1-115-0
@@ -151,7 +151,6 @@ jobs:
           curl -LO https://github.com/digitalocean/doctl/releases/download/v1.115.0/doctl-1.115.0-linux-amd64.tar.gz
           tar -xvf doctl-1.115.0-linux-amd64.tar.gz
           chmod +x doctl
-          mv doctl ./doctl
 
       - name: Add doctl to PATH
         run: echo "${{ github.workspace }}/doctl" >> $GITHUB_PATH
