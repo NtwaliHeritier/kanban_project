@@ -152,6 +152,7 @@ jobs:
       - name: Authenticate doctl with DigitalOcean
         run: |
           doctl auth init --access-token ${{ secrets.DO_API_TOKEN }}
+
       - uses: ./.github/actions/deploy
         with:
           github_user: ${{ github.repository_owner }}
